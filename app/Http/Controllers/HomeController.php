@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Link;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller {
     
@@ -15,7 +16,6 @@ class HomeController extends Controller {
             'i' => 1
         ];
         
-
         return view('home', $data);
     }
 
@@ -36,14 +36,16 @@ class HomeController extends Controller {
         Link::create($input);
         session()->flash('success', 'Link berhasil dibuat');
 
-        return redirect()->to('/edit'); 
+        // return redirect()->to('/edit'); 
+        return back();
         
     }
 
-    public function go_to(Link $short) {
-        $link = Link::where('shore', $short);
-        return redirect()->to($link);
+    public function go_to($short) {
+        $link = DB::table('links')->where('short', $short)->first();
+        $to = $link->link;
+        
+        return redirect()->away($to);
     }
 
-    public function edit() {}
 }

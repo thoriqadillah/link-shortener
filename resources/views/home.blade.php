@@ -41,7 +41,8 @@
                 <tr>
                     <th scope="row">{{$i++}}</th>
                     <td><a href="{{$link->link}}">{{$link->link}}</a></td>
-                    <td><a href="{{env('APP_URL')}}/{{$link->short}}">{{env('APP_URL')}}/{{$link->short}}</a></td>
+                    {{-- kalau sudah dihosting diganti {{env('APP_URL')}} --}}
+                    <td><a href="http://127.0.0.1:8000/{{$link->short}}">http://127.0.0.1:8000/{{$link->short}}</a></td> 
                 </tr>
             @endforeach
         </tbody>
