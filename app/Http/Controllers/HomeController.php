@@ -2,9 +2,48 @@
 
 namespace App\Http\Controllers;
 
+use App\Link;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
-class HomeController extends Controller
-{
-    //
+class HomeController extends Controller {
+    
+    public function index() {
+        $link = Link::all();
+        $data = [
+            'data' => $link,
+            'i' => 1
+        ];
+        
+
+        return view('home', $data);
+    }
+
+    public function create(Request $request) {
+        $input = $request->validate(
+            //rules
+            [
+                'link' => 'required'
+            ],
+
+            //error message
+            [
+                'required' => 'Link tidak boleh kosong'
+            ]
+        );
+        $input['short'] = Str::random(5);
+
+        Link::create($input);
+        session()->flash('success', 'Link berhasil dibuat');
+
+        return redirect()->to('/edit'); 
+        
+    }
+
+    public function go_to(Link $short) {
+        $link = Link::where('shore', $short);
+        return redirect()->to($link);
+    }
+
+    public function edit() {}
 }
