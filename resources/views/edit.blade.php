@@ -20,7 +20,7 @@
             <div class="col-8">
                 <div class="form-row">
                     <div class="col">
-                        <input type="text" class="form-control @error('link') is-invalid @enderror" value="{{old('link') ?? $latest->link}}" name="link" placeholder="Your Link" disabled>
+                        <input type="text" class="form-control @error('link') is-invalid @enderror" value="{{old('link') ?? $latest->link}}" name="link" placeholder="Your Link">
                         @error('link')
                             <div class="invalid-feedback">
                                 {{ $message }}
@@ -33,8 +33,8 @@
                           <div class="input-group-prepend">
                             <div class="input-group-text">http://127.0.0.1:8000/</div>
                           </div>
-                          <input type="text" class="form-control @error('link') is-invalid @enderror" id="inlineFormInputGroupUsername" name="short" value="{{old('short') ?? $latest->short}}" placeholder="Short Link">
-                          @error('link')
+                          <input type="text" class="form-control @error('short') is-invalid @enderror" id="inlineFormInputGroupUsername" name="short" value="{{old('short') ?? $latest->short}}" placeholder="Short Link">
+                          @error('short')
                             <div class="invalid-feedback">
                                 {{ $message }}
                             </div>

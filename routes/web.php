@@ -12,11 +12,16 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+//read
 Route::get('/', 'HomeController@index');
 Route::get('/{slug}', 'HomeController@go_to');
+
+//create
 Route::post('/create', 'HomeController@create');
 
-// Route::get('/edit/latest', 'HomeController@edit_latest');
+//update
 Route::get('/edit/{link:short}', 'HomeController@edit');
 Route::patch('/update/{link}', 'HomeController@update');
+
+//delete
+Route::post('/{link}/destroy', 'HomeController@destroy');

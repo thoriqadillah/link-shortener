@@ -64,8 +64,8 @@ class HomeController extends Controller {
         $input = request()->validate(
             //rules
             [
-                'link' => 'unique:links,link',
-                'short' => 'required|unique:links,short',
+                'link' => 'required|unique:links,link,'.$link->id,
+                'short' => 'required|unique:links,short,'.$link->id,
             ],
 
             //error message
@@ -77,6 +77,11 @@ class HomeController extends Controller {
 
         $link->update($input);
         return redirect()->to('/');
+    }
+
+    public function destroy(Link $link) {
+        $link->delete();
+        return back();
     }
 
 }
