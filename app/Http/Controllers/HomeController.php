@@ -23,12 +23,13 @@ class HomeController extends Controller {
         $input = $request->validate(
             //rules
             [
-                'link' => 'required'
+                'link' => 'required|unique:links,link'
             ],
 
             //error message
             [
-                'required' => 'Link tidak boleh kosong'
+                'required' => 'Link tidak boleh kosong',
+                'unique' => 'Link sudah digunakan'
             ]
         );
         $random = Str::random(5);
@@ -79,7 +80,8 @@ class HomeController extends Controller {
         return redirect()->to('/');
     }
 
-    public function destroy(Link $link) {
+    public function destroy($id) {
+        $link = Link::where('id', $id)->first();
         $link->delete();
         return back();
     }
