@@ -24,4 +24,4 @@ Route::get('/edit/{link:short}', 'HomeController@edit');
 Route::patch('/update/{link}', 'HomeController@update');
 
 //delete
-Route::get('/destroy/{id}', 'HomeController@destroy')->name('delete_link');
+Route::get('/destroy/{link}', 'HomeController@destroy')->name('delete_link');

@@ -80,9 +80,13 @@ class HomeController extends Controller {
         return redirect()->to('/');
     }
 
-    public function destroy($id) {
-        $link = Link::where('id', $id)->first();
-        $link->delete();
+    public function destroy(Link $link) {
+        $data = $link->delete();
+
+        if(!$data) {
+            return abort(404);
+        }
+        session()->flash('deleted', 'Link berhasil dihapus');
         return back();
     }
 
