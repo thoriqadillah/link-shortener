@@ -17,4 +17,6 @@ Route::get('/', 'HomeController@index');
 Route::get('/{slug}', 'HomeController@go_to');
 Route::post('/create', 'HomeController@create');
 
-// Route::get('/edit/latest', 'HomeController@index');
+// Route::get('/edit/latest', 'HomeController@edit_latest');
+Route::get('/edit/{link:short}', 'HomeController@edit');
+Route::patch('/update/{link}', 'HomeController@update');
