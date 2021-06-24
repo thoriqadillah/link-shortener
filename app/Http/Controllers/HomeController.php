@@ -23,13 +23,14 @@ class HomeController extends Controller {
         $input = $request->validate(
             //rules
             [
-                'link' => 'required|unique:links,link'
+                'link' => 'required|unique:links,link|url'
             ],
 
             //error message
             [
                 'required' => 'Link tidak boleh kosong',
-                'unique' => 'Link sudah digunakan'
+                'unique' => 'Link sudah digunakan',
+                'url' => 'Link tidak valid'
             ]
         );
         $random = Str::random(5);
@@ -39,8 +40,6 @@ class HomeController extends Controller {
         session()->flash('success', 'Link berhasil dibuat');
 
         return redirect()->to("/edit/$random"); 
-        // return back();
-        
     }
 
     public function go_to(Link $link) {
@@ -48,7 +47,7 @@ class HomeController extends Controller {
         if (!$to) {
             return abort(404);
         }
-        
+
         return redirect()->away($to);
     }
 
@@ -67,18 +66,21 @@ class HomeController extends Controller {
         $input = request()->validate(
             //rules
             [
-                'link' => 'required|unique:links,link,'.$link->id,
-                'short' => 'required|unique:links,short,'.$link->id,
+                'link' => 'required|unique:links,link,'.$link->id.'|url',
+                'short' => 'required|unique:links,short,'.$link->id.'|alpha_dash',
             ],
 
             //error message
             [
                 'required' => 'Link tidak boleh kosong',
-                'unique' => 'Link sudah digunakan'
+                'unique' => 'Link sudah digunakan',
+                'alpha_dash' => 'Link dipisahkan dengan "-" atau "_" , dan tidak boleh selain huruf, angka',
+                'url' => 'Link tidak valid'
             ]
         );
 
         $link->update($input);
+        session()->flash('diedit', 'Link berhasil diedit');
         return redirect()->to('/');
     }
 

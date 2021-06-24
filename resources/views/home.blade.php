@@ -8,9 +8,14 @@
     <h5>Create New Link</h5>
 
     @if (session()->has('deleted'))
-    <div class="alert alert-success">
+        <div class="alert alert-success">
             {{ session()->get('deleted') }}
-        </div>        
+        </div>
+    @endif
+    @if (session()->has('diedit'))
+        <div class="alert alert-success">
+            {{ session()->get('diedit') }}
+        </div>
     @endif
     
     <form action="/create" method="POST">
