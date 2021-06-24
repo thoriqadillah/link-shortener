@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 //read
 Route::get('/', 'HomeController@index');
-Route::get('/{slug}', 'HomeController@go_to');
+Route::get('/{link:short}', 'HomeController@go_to');
 
 //create
 Route::post('/create', 'HomeController@create');

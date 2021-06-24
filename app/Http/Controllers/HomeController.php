@@ -43,9 +43,11 @@ class HomeController extends Controller {
         
     }
 
-    public function go_to($short) {
-        $link = DB::table('links')->where('short', $short)->first();
+    public function go_to(Link $link) {
         $to = $link->link;
+        if (!$to) {
+            return abort(404);
+        }
         
         return redirect()->away($to);
     }
